@@ -2,9 +2,10 @@ import Promise from 'bluebird';
 
 
 class ImagePixels {
-	constructor(img, width, height) {
+	constructor(img, width, yStretch) {
+		const aspectRatio = (img.height / img.width) * yStretch
 		this.width = width || img.width
-		this.height = height || img.height
+		this.height = this.width * aspectRatio
 		const canvas = document.createElement('canvas')
 		canvas.width = this.width
 		canvas.height = this.height
@@ -22,8 +23,6 @@ class ImagePixels {
 		}
 	}
 }
-
-
 
 const isWhite = (r, g, b) => {
 	return r > 250 && g > 250 && b > 250 
@@ -55,12 +54,12 @@ export const pixelsToText = (imgPixels, text, options) => {
 	return chars.join('')
 }
 
-export const fileToPixels = (file, width, height) => {
+export const fileToPixels = (file, width, stretch) => {
 	const img = imageFromFile(file)
 	img.crossOrigin = "Anonymous"
 	return new Promise((resolve, reject) => {
 		img.onload = () => {
-			resolve(new ImagePixels(img, width, height))
+			resolve(new ImagePixels(img, width, stretch))
 		}
 		img.onerror = (err) => {
 			reject(err)
