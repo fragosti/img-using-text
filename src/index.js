@@ -1,4 +1,4 @@
-import { fileToPixels, pixelsToText } from 'Src/utils'
+import { urlToPixels, fileToPixels, pixelsToText } from 'Src/utils'
 
 window.onload = () => {
 	const handleFileChange = function(e) {

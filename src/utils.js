@@ -24,14 +24,25 @@ class ImagePixels {
 	}
 }
 
-export const isWhite = (r, g, b) => {
-	return r > 250 && g > 250 && b > 250 
+const imagePixelsPromise = (img, width, stretch) => {
+	return new Promise((resolve, reject) => {
+		img.onload = () => {
+			resolve(new ImagePixels(img, width, stretch))
+		}
+		img.onerror = (err) => {
+			reject(err)
+		}
+	})
+}
+
+export const isWhiteOrTransparent = (r, g, b, a) => {
+	return a < 0.1 || r > 250 && g > 250 && b > 250 
 }
 
 export const pixelsToText = (imgPixels, text, options) => {
 	const { shouldInsertChar } = Object.assign({}, {
 		shouldInsertChar: ({r, g, b, a}) => {
-			return !isWhite(r,g,b)
+			return !isWhiteOrTransparent(r, g, b, a)
 		},
 	}, options)
 
@@ -56,20 +67,19 @@ export const pixelsToText = (imgPixels, text, options) => {
 export const fileToPixels = (file, width, stretch) => {
 	const img = imageFromFile(file)
 	img.crossOrigin = "Anonymous"
-	return new Promise((resolve, reject) => {
-		img.onload = () => {
-			resolve(new ImagePixels(img, width, stretch))
-		}
-		img.onerror = (err) => {
-			reject(err)
-		}
-	})
+	return imagePixelsPromise(img, width, stretch)
+}
+
+export const urlToPixels = (url, width, stretch) => {
+	const img = new Image()
+	img.crossOrigin = "Anonymous"
+	img.src = url
+	return imagePixelsPromise(img, width, stretch)
 }
 
 export const imageFromFile = (file) => {
 	const img = new Image()
 	img.file = file
-	document.body.appendChild(img)
 	const reader = new FileReader();
   reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
   reader.readAsDataURL(file);
