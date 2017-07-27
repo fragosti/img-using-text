@@ -24,13 +24,12 @@ class ImagePixels {
 	}
 }
 
-const isWhite = (r, g, b) => {
+export const isWhite = (r, g, b) => {
 	return r > 250 && g > 250 && b > 250 
 }
 
 export const pixelsToText = (imgPixels, text, options) => {
-	const { reverseText, shouldInsertChar } = Object.assign({}, {
-		reverseText: false,
+	const { shouldInsertChar } = Object.assign({}, {
 		shouldInsertChar: ({r, g, b, a}) => {
 			return !isWhite(r,g,b)
 		},
