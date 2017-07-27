@@ -2,14 +2,14 @@ import Promise from 'bluebird';
 
 
 class ImagePixels {
-	constructor(img) {
+	constructor(img, width, height) {
+		this.width = width || img.width
+		this.height = height || img.height
 		const canvas = document.createElement('canvas')
-		canvas.width = img.width
-		canvas.height = img.height
-		this.height = img.height
-		this.width = img.width
+		canvas.width = this.width
+		canvas.height = this.height
 		this.context = canvas.getContext('2d')
-		this.context.drawImage(img, 0, 0)
+		this.context.drawImage(img, 0, 0, this.width, this.height)
 	}
 
 	get(i, j) {
@@ -55,12 +55,12 @@ export const pixelsToText = (imgPixels, text, options) => {
 	return chars.join('')
 }
 
-export const fileToPixels = (file) => {
+export const fileToPixels = (file, width, height) => {
 	const img = imageFromFile(file)
 	img.crossOrigin = "Anonymous"
 	return new Promise((resolve, reject) => {
 		img.onload = () => {
-			resolve(new ImagePixels(img))
+			resolve(new ImagePixels(img, width, height))
 		}
 		img.onerror = (err) => {
 			reject(err)
