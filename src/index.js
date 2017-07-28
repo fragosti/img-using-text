@@ -1,9 +1,11 @@
+import Promise from 'bluebird';
 import { imagePixelsPromise } from 'Src/ImagePixels.js';
 
 export const isWhiteOrTransparent = (r, g, b, a) => (a < 0.1) || (r > 250 && g > 250 && b > 250);
 
 export const pixelsToText = (imgPixels, options) => {
-  const { charForPixel } = Object.assign({}, {
+  const { charForPixel, async } = Object.assign({}, {
+    async: false,
     charForPixel: ({ r, g, b, a }) => {
       if (!isWhiteOrTransparent(r, g, b, a)) {
         return 'x';
@@ -13,7 +15,7 @@ export const pixelsToText = (imgPixels, options) => {
   }, options);
   const chars = [];
   let charIndex = 0;
-  for (let i = 0; i < imgPixels.height; i++) {
+  const handleRow = (i) => {
     if (i !== 0) {
       chars.push('\n');
     }
@@ -21,6 +23,21 @@ export const pixelsToText = (imgPixels, options) => {
       chars.push(charForPixel(imgPixels.get(j, i), charIndex));
       charIndex += 1;
     }
+  };
+  if (async) {
+    const promises = [];
+    for (let i = 0; i < imgPixels.height; i++) {
+      promises.push(new Promise((resolve) => {
+        setTimeout(() => {
+          handleRow(i);
+          resolve();
+        }, 0);
+      }));
+    }
+    return Promise.all(promises).then(() => chars.join(''));
+  }
+  for (let i = 0; i < imgPixels.height; i++) {
+    handleRow(i);
   }
   return chars.join('');
 };
