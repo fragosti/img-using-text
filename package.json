@@ -5,22 +5,11 @@
   "keywords": [
     "npm-package",
     "package",
-    "boilerplate",
     "es6",
     "es2015",
     "babel",
     "webpack",
-    "webpack2",
-    "mocha",
-    "chai",
-    "sinon",
-    "istanbul",
-    "eslint",
-    "travis",
-    "travis-ci",
-    "travis.ci.org",
-    "coveralls",
-    "coveralls.io"
+    "webpack2"
   ],
   "author": "Francesco Agosti",
   "repository": {
