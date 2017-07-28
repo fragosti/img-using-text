@@ -4,13 +4,12 @@ export const isWhiteOrTransparent = (r, g, b, a) => (a < 0.1) || (r > 250 && g >
 
 export const pixelsToText = (imgPixels, options) => {
   const { charForPixel } = Object.assign({}, {
-  	charForPixel: ({r, g, b, a}, charIndex) => {
+    charForPixel: ({ r, g, b, a }) => {
       if (!isWhiteOrTransparent(r, g, b, a)) {
-        return 'x'
-      } else {
-        return ' '
+        return 'x';
       }
-  	},
+      return ' ';
+    },
   }, options);
   const chars = [];
   let charIndex = 0;
@@ -19,7 +18,7 @@ export const pixelsToText = (imgPixels, options) => {
       chars.push('\n');
     }
     for (let j = 0; j < imgPixels.width; j++) {
-      chars.push(charForPixel(imgPixels.get(j, i), charIndex))
+      chars.push(charForPixel(imgPixels.get(j, i), charIndex));
       charIndex += 1;
     }
   }
