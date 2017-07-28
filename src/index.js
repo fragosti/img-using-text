@@ -1,10 +1,6 @@
 import { imagePixelsPromise } from 'Src/ImagePixels.js';
 
-export const fileToText = (file, text, width, stretch, options) => fileToPixels(file, width, stretch).then(imgPixels => pixelsToText(imgPixels, text, options));
-
-export const urlToText = (url, text, width, stretch, options) => urlToPixels(url, width, stretch).then(imgPixels => pixelsToText(imgPixels, text, options));
-
-export const isWhiteOrTransparent = (r, g, b, a) => a < 0.1 || r > 250 && g > 250 && b > 250;
+export const isWhiteOrTransparent = (r, g, b, a) => (a < 0.1) || (r > 250 && g > 250 && b > 250);
 
 export const pixelsToText = (imgPixels, text, options) => {
   const { shouldInsertChar } = Object.assign({}, {
@@ -29,6 +25,15 @@ export const pixelsToText = (imgPixels, text, options) => {
   return chars.join('');
 };
 
+export const imageFromFile = (file) => {
+  const img = new Image();
+  img.file = file;
+  const reader = new FileReader();
+  reader.onload = (function onLoad(aImg) { return function assignSrc(e) { aImg.src = e.target.result; }; }(img));
+  reader.readAsDataURL(file);
+  return img;
+};
+
 export const fileToPixels = (file, width, stretch) => {
   const img = imageFromFile(file);
   img.crossOrigin = 'Anonymous';
@@ -42,12 +47,7 @@ export const urlToPixels = (url, width, stretch) => {
   return imagePixelsPromise(img, width, stretch);
 };
 
-export const imageFromFile = (file) => {
-  const img = new Image();
-  img.file = file;
-  const reader = new FileReader();
-  reader.onload = (function (aImg) { return function (e) { aImg.src = e.target.result; }; }(img));
-  reader.readAsDataURL(file);
-  return img;
-};
+export const fileToText = (file, text, width, stretch, options) => fileToPixels(file, width, stretch).then(imgPixels => pixelsToText(imgPixels, text, options));
+
+export const urlToText = (url, text, width, stretch, options) => urlToPixels(url, width, stretch).then(imgPixels => pixelsToText(imgPixels, text, options));
 
