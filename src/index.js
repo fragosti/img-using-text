@@ -1,18 +1,53 @@
-import { fileToText } from 'Src/utils'
+import { imagePixelsPromise } from 'Src/ImagePixels.js';
 
-window.onload = () => {
-	const handleFileChange = function(e) {
-		const file = this.files[0]
-		const text = `!function(t){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=t();`
-		const width = 200
-		const stretch = 0.6
-		fileToText(file, text, width, stretch)
-		.then((formattedText) => {
-			const content = document.getElementById("content");
-			content.innerHTML = formattedText
-		})
-	}	
-	const inputElement = document.getElementById("input");
-	inputElement.addEventListener("change", handleFileChange, false);
-}
+export const fileToText = (file, text, width, stretch, options) => fileToPixels(file, width, stretch).then(imgPixels => pixelsToText(imgPixels, text, options));
+
+export const urlToText = (url, text, width, stretch, options) => urlToPixels(url, width, stretch).then(imgPixels => pixelsToText(imgPixels, text, options));
+
+export const isWhiteOrTransparent = (r, g, b, a) => a < 0.1 || r > 250 && g > 250 && b > 250;
+
+export const pixelsToText = (imgPixels, text, options) => {
+  const { shouldInsertChar } = Object.assign({}, {
+    shouldInsertChar: ({ r, g, b, a }) => !isWhiteOrTransparent(r, g, b, a),
+  }, options);
+
+  const chars = [];
+  let charIndex = 0;
+  for (let i = 0; i < imgPixels.height; i++) {
+    if (i !== 0) {
+      chars.push('\n');
+    }
+    for (let j = 0; j < imgPixels.width; j++) {
+      if (shouldInsertChar(imgPixels.get(j, i))) {
+        chars.push(text[charIndex % text.length]);
+      } else {
+        chars.push(' ');
+      }
+      charIndex += 1;
+    }
+  }
+  return chars.join('');
+};
+
+export const fileToPixels = (file, width, stretch) => {
+  const img = imageFromFile(file);
+  img.crossOrigin = 'Anonymous';
+  return imagePixelsPromise(img, width, stretch);
+};
+
+export const urlToPixels = (url, width, stretch) => {
+  const img = new Image();
+  img.crossOrigin = 'Anonymous';
+  img.src = url;
+  return imagePixelsPromise(img, width, stretch);
+};
+
+export const imageFromFile = (file) => {
+  const img = new Image();
+  img.file = file;
+  const reader = new FileReader();
+  reader.onload = (function (aImg) { return function (e) { aImg.src = e.target.result; }; }(img));
+  reader.readAsDataURL(file);
+  return img;
+};
 
