@@ -2,11 +2,16 @@ import { imagePixelsPromise } from 'Src/ImagePixels.js';
 
 export const isWhiteOrTransparent = (r, g, b, a) => (a < 0.1) || (r > 250 && g > 250 && b > 250);
 
-export const pixelsToText = (imgPixels, text, options) => {
-  const { shouldInsertChar } = Object.assign({}, {
-    shouldInsertChar: ({ r, g, b, a }) => !isWhiteOrTransparent(r, g, b, a),
+export const pixelsToText = (imgPixels, options) => {
+  const { charForPixel } = Object.assign({}, {
+  	charForPixel: ({r, g, b, a}, charIndex) => {
+      if (!isWhiteOrTransparent(r, g, b, a)) {
+        return 'x'
+      } else {
+        return ' '
+      }
+  	},
   }, options);
-
   const chars = [];
   let charIndex = 0;
   for (let i = 0; i < imgPixels.height; i++) {
@@ -14,11 +19,7 @@ export const pixelsToText = (imgPixels, text, options) => {
       chars.push('\n');
     }
     for (let j = 0; j < imgPixels.width; j++) {
-      if (shouldInsertChar(imgPixels.get(j, i))) {
-        chars.push(text[charIndex % text.length]);
-      } else {
-        chars.push(' ');
-      }
+      chars.push(charForPixel(imgPixels.get(j, i), charIndex))
       charIndex += 1;
     }
   }
@@ -47,7 +48,7 @@ export const urlToPixels = (url, width, stretch) => {
   return imagePixelsPromise(img, width, stretch);
 };
 
-export const fileToText = (file, text, width, stretch, options) => fileToPixels(file, width, stretch).then(imgPixels => pixelsToText(imgPixels, text, options));
+export const fileToText = (file, width, stretch, options) => fileToPixels(file, width, stretch).then(imgPixels => pixelsToText(imgPixels, options));
 
-export const urlToText = (url, text, width, stretch, options) => urlToPixels(url, width, stretch).then(imgPixels => pixelsToText(imgPixels, text, options));
+export const urlToText = (url, width, stretch, options) => urlToPixels(url, width, stretch).then(imgPixels => pixelsToText(imgPixels, options));
 

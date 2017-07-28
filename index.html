@@ -8,14 +8,27 @@
 		</style>
 		<script src="lib/index.js"></script>
 		<script>	
-			const fileToText = window['img-using-text'].fileToText;
+			const pckg = window['img-using-text']
+			const fileToText = pckg.fileToText;
+			const isWhiteOrTransparent = pckg.isWhiteOrTransparent;
+			const text = '!function(t){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=t();';
+			const charForPixel = (pixel, pixelIndex) => {
+				const { r, g, b, a } = pixel;
+				if (!isWhiteOrTransparent(r, g, b, a)) {
+					return text[pixelIndex % text.length]
+				} else {
+					return ' '
+				}
+			}
+
 			window.onload = () => {
 			  const handleFileChange = function (e) {
 			    const file = this.files[0];
-			    const text = '!function(t){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=t();';
 			    const width = 300;
 			    const stretch = 0.6;
-			    fileToText(file, text, width, stretch)
+			    fileToText(file, width, stretch, {
+			    	charForPixel: charForPixel
+			    })
 					.then((formattedText) => {
 					  const content = document.getElementById('content');
 					  content.innerHTML = formattedText;
