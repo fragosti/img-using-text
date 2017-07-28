@@ -1,4 +1,4 @@
-export const exampleText = `                                                                                                                     xxxxxxxxxxxxxxx                                      
+const exampleText = `                                                                                                                     xxxxxxxxxxxxxxx                                      
                                                                                                                   xxxxxxxxxxxxxxxxxxxx                                    
                                                                                                                 xxxxxxxxxxxxxxxxxxxxxxxxx                                 
                                                                                                               xxxxxxxxxxxxxxxxxxxxxxxxxxxx                                
@@ -174,4 +174,5 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                              
                                                                                                                                                                           
                                                                                                                                                                           
                                                                                                                                                                           
-                                                                                                                                                                          `
+                                                                                                                                                                          `;
+export default exampleText;
