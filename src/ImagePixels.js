@@ -1,11 +1,11 @@
 import Promise from 'bluebird';
 
 export default class ImagePixels {
-  constructor(img, width, yStretch) {
+  constructor(img, width, yStretch = 1, mockCanvas) {
     const aspectRatio = (img.height / img.width) * yStretch;
     this.width = width || img.width;
     this.height = this.width * aspectRatio;
-    const canvas = document.createElement('canvas');
+    const canvas = mockCanvas || document.createElement('canvas');
     canvas.width = this.width;
     canvas.height = this.height;
     this.context = canvas.getContext('2d');

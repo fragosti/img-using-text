@@ -4,7 +4,6 @@ import merge        from 'webpack-merge';
 import packageJson  from './package.json'
 
 import baseConfig   from './webpack.config.base';
-import resolveRules from './builder/resolve';
 import babelLoader  from './builder/loaders/babel';
 
 
@@ -20,6 +19,5 @@ export default merge(
             umdNamedDefine: true
         },
     },
-    resolveRules,
     babelLoader
 );

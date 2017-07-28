@@ -1,5 +1,5 @@
 import Promise from 'bluebird';
-import { imagePixelsPromise } from 'Src/ImagePixels.js';
+import { imagePixelsPromise } from './ImagePixels.js';
 
 export const isWhiteOrTransparent = (r, g, b, a) => (a < 0.1) || (r > 250 && g > 250 && b > 250);
 
