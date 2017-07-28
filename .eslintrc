@@ -2,7 +2,7 @@
   "parser": "babel-eslint",
 
   "env": {
-    "mocha": true,
+    "jest": true,
     "browser": true
   },
 

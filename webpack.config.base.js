@@ -1,5 +1,3 @@
-
-
 export default {
-    target: 'web'
+  target: 'web'
 }
