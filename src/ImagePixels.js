@@ -1,12 +1,12 @@
 import Promise from 'bluebird';
 
 /**
- * A class that wraps a canvas context and allows you to read individual pixels as rgba values. 
- */ 
+ * A class that wraps a canvas context and allows you to read individual pixels as rgba values.
+ */
 export default class ImagePixels {
   /**
    * @private
-   * @param {Image} img 
+   * @param {Image} img
    * @param {number} [width = image width] width value if you want to resize the image
    * @param {number} [yStretch = 1] how much you would like to stretch the height compared to the width
    * @param {Canvas} [mockCanvas] mock canvas used only for testing with 'canvas-prebuilt'
@@ -24,7 +24,7 @@ export default class ImagePixels {
 
   /**
    * Get an Object with keys r, g, b, a representing the pixel at point i, j
-   * @param {number} i 
+   * @param {number} i
    * @param {number} j
    * @returns {Object} with r, g, b, a values
    */
