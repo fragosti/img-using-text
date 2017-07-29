@@ -102,13 +102,6 @@ Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refe
 
 A class that wraps a canvas context and allows you to read individual pixels as rgba values.
 
-**Parameters**
-
--   `img`  
--   `width`  
--   `yStretch`   (optional, default `1`)
--   `mockCanvas`  
-
 #### constructor
 
 **Parameters**
