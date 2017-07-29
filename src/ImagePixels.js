@@ -1,7 +1,6 @@
 import Promise from 'bluebird';
 
 /**
- * @private
  * A class that wraps a canvas context and allows you to read individual pixels as rgba values. 
  */ 
 export default class ImagePixels {
@@ -24,7 +23,6 @@ export default class ImagePixels {
   }
 
   /**
-   * @private
    * Get an Object with keys r, g, b, a representing the pixel at point i, j
    * @param {number} i 
    * @param {number} j

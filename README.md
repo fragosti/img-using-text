@@ -27,7 +27,7 @@ Convert from ImagePixels to text
 
 **Parameters**
 
--   `imgPixels` **ImagePixels** instance of ImagePixels containing image information
+-   `imgPixels` **[ImagePixels](#imagepixels)** instance of ImagePixels containing image information
 -   `options` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** options object
     -   `options.async` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** whether to wrap the work for every row in a setTimeout
     -   `options.charForPixel` **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** the function to call to convert from an {r, g, b, a} object to a character or text.
@@ -97,6 +97,28 @@ Given a File containing an image, convert it to a text representation.
     -   `options.charForPixel` **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** the function to call to convert from an {r, g, b, a} object to a character or text.
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** a promise that resolves to an ImagePixels instance
+
+### ImagePixels
+
+A class that wraps a canvas context and allows you to read individual pixels as rgba values.
+
+**Parameters**
+
+-   `img`  
+-   `width`  
+-   `yStretch`   (optional, default `1`)
+-   `mockCanvas`  
+
+#### get
+
+Get an Object with keys r, g, b, a representing the pixel at point i, j
+
+**Parameters**
+
+-   `i` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `j` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+
+Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** with r, g, b, a values
 
 ## Contributing
 
