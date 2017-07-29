@@ -29,8 +29,8 @@ Convert from ImagePixels to text
 
 -   `imgPixels` **[ImagePixels](#imagepixels)** instance of ImagePixels containing image information
 -   `options` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** options object
-    -   `options.async` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** whether to wrap the work for every row in a setTimeout
-    -   `options.charForPixel` **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** the function to call to convert from an {r, g, b, a} object to a character or text.
+    -   `options.async` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** whether to wrap the work for every row in a setTimeout (optional, default `false`)
+    -   `options.charForPixel` **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** the function to call to convert from an {r, g, b, a} object to a character or text. (optional, default `return'x'if!isWhiteOrTransparentelse' '`)
 
 Returns **([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise))** the resulting text if not async, a Promise otherwise
 
@@ -78,8 +78,8 @@ Given a File containing an image, convert it to a text representation.
 -   `width` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** width value if you want to resize the image (optional, default `imagewidth`)
 -   `stretch` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** how much you would like to stretch the height compared to the width (optional, default `1`)
 -   `options` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** options object
-    -   `options.async` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** whether to wrap the work for every row in a setTimeout
-    -   `options.charForPixel` **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** the function to call to convert from an {r, g, b, a} object to a character or text.
+    -   `options.async` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** whether to wrap the work for every row in a setTimeout (optional, default `false`)
+    -   `options.charForPixel` **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** the function to call to convert from an {r, g, b, a} object to a character or text. (optional, default `return'x'if!isWhiteOrTransparentelse' '`)
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** a promise that resolves to an ImagePixels instance
 
@@ -93,8 +93,8 @@ Given a File containing an image, convert it to a text representation.
 -   `width` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** width value if you want to resize the image (optional, default `imagewidth`)
 -   `stretch` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** how much you would like to stretch the height compared to the width (optional, default `1`)
 -   `options` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** options object
-    -   `options.async` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** whether to wrap the work for every row in a setTimeout
-    -   `options.charForPixel` **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** the function to call to convert from an {r, g, b, a} object to a character or text.
+    -   `options.async` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** whether to wrap the work for every row in a setTimeout (optional, default `false`)
+    -   `options.charForPixel` **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** the function to call to convert from an {r, g, b, a} object to a character or text. (optional, default `return'x'if!isWhiteOrTransparentelse' '`)
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** a promise that resolves to an ImagePixels instance
 
@@ -108,6 +108,15 @@ A class that wraps a canvas context and allows you to read individual pixels as 
 -   `width`  
 -   `yStretch`   (optional, default `1`)
 -   `mockCanvas`  
+
+#### constructor
+
+**Parameters**
+
+-   `img` **[Image](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image)** 
+-   `width` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** width value if you want to resize the image (optional, default `imagewidth`)
+-   `yStretch` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** how much you would like to stretch the height compared to the width (optional, default `1`)
+-   `mockCanvas` **Canvas** mock canvas used only for testing with 'canvas-prebuilt' (optional, default `test-only`)
 
 #### get
 

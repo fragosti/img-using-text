@@ -5,11 +5,10 @@ import Promise from 'bluebird';
  */
 export default class ImagePixels {
   /**
-   * @private
    * @param {Image} img
    * @param {number} [width = image width] width value if you want to resize the image
    * @param {number} [yStretch = 1] how much you would like to stretch the height compared to the width
-   * @param {Canvas} [mockCanvas] mock canvas used only for testing with 'canvas-prebuilt'
+   * @param {Canvas} [mockCanvas = test-only] mock canvas used only for testing with 'canvas-prebuilt'
    */
   constructor(img, width, yStretch = 1, mockCanvas) {
     const aspectRatio = (img.height / img.width) * yStretch;

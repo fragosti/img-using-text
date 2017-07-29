@@ -15,8 +15,8 @@ export const isWhiteOrTransparent = (r, g, b, a) => (a < 0.1) || (r > 250 && g >
  * Convert from ImagePixels to text
  * @param {ImagePixels} imgPixels instance of ImagePixels containing image information
  * @param {Object} options options object
- * @param {boolean} options.async whether to wrap the work for every row in a setTimeout
- * @param {function} options.charForPixel the function to call to convert from an {r, g, b, a} object to a character or text.
+ * @param {boolean} [options.async = false] whether to wrap the work for every row in a setTimeout
+ * @param {function} [options.charForPixel = return 'x' if !isWhiteOrTransparent else ' '] the function to call to convert from an {r, g, b, a} object to a character or text.
  * @returns {string|Promise} the resulting text if not async, a Promise otherwise
  */
 export const pixelsToText = (imgPixels, options) => {
@@ -105,8 +105,8 @@ export const urlToPixels = (url, width, stretch) => {
  * @param {number} [width = image width] width value if you want to resize the image
  * @param {number} [stretch = 1] how much you would like to stretch the height compared to the width
  * @param {Object} options options object
- * @param {boolean} options.async whether to wrap the work for every row in a setTimeout
- * @param {function} options.charForPixel the function to call to convert from an {r, g, b, a} object to a character or text.
+ * @param {boolean} [options.async = false] whether to wrap the work for every row in a setTimeout
+ * @param {function} [options.charForPixel = return 'x' if !isWhiteOrTransparent else ' '] the function to call to convert from an {r, g, b, a} object to a character or text.
  * @return {Promise} a promise that resolves to an ImagePixels instance
  */
 export const fileToText = (file, width, stretch, options) => fileToPixels(file, width, stretch).then(imgPixels => pixelsToText(imgPixels, options));
@@ -117,8 +117,8 @@ export const fileToText = (file, width, stretch, options) => fileToPixels(file, 
  * @param {number} [width = image width] width value if you want to resize the image
  * @param {number} [stretch = 1] how much you would like to stretch the height compared to the width
  * @param {Object} options options object
- * @param {boolean} options.async whether to wrap the work for every row in a setTimeout
- * @param {function} options.charForPixel the function to call to convert from an {r, g, b, a} object to a character or text.
+ * @param {boolean} [options.async = false] whether to wrap the work for every row in a setTimeout
+ * @param {function} [options.charForPixel = return 'x' if !isWhiteOrTransparent else ' '] the function to call to convert from an {r, g, b, a} object to a character or text.
  * @return {Promise} a promise that resolves to an ImagePixels instance
  */
 export const urlToText = (url, width, stretch, options) => urlToPixels(url, width, stretch).then(imgPixels => pixelsToText(imgPixels, options));
