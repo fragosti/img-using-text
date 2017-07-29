@@ -21,7 +21,6 @@ test
 .babelrc
 .eslintignore
 .eslintrc
-.travis.yml
 webpack.config.base.js
 webpack.config.build.base.js
 webpack.config.build.development.js
