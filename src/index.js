@@ -76,50 +76,50 @@ export const imageFromFile = (file) => {
  * Given a File it returns an ImagePixels Promise
  * @param {File} file
  * @param {number} [width = image width] width value if you want to resize the image
- * @param {number} [stretch = 1] how much you would like to stretch the height compared to the width
+ * @param {number} [yStretch = 1] how much you would like to stretch the height compared to the width
  * @returns {Promise} a bluebird promise
  */
-export const fileToPixels = (file, width, stretch) => {
+export const fileToPixels = (file, width, yStretch) => {
   const img = imageFromFile(file);
   img.crossOrigin = 'Anonymous';
-  return imagePixelsPromise(img, width, stretch);
+  return imagePixelsPromise(img, width, yStretch);
 };
 
 /**
  * Given a URL it returns an ImagePixels Promise
  * @param {string} url url of the image (needs to allows CORS)
  * @param {number} [width = image width] width value if you want to resize the image
- * @param {number} [stretch = 1] how much you would like to stretch the height compared to the width
+ * @param {number} [yStretch = 1] how much you would like to stretch the height compared to the width
  * @returns {Promise} a bluebird promise
  */
-export const urlToPixels = (url, width, stretch) => {
+export const urlToPixels = (url, width, yStretch) => {
   const img = new Image();
   img.crossOrigin = 'Anonymous';
   img.src = url;
-  return imagePixelsPromise(img, width, stretch);
+  return imagePixelsPromise(img, width, yStretch);
 };
 
 /**
  * Given a File containing an image, convert it to a text representation.
  * @param {File} file
  * @param {number} [width = image width] width value if you want to resize the image
- * @param {number} [stretch = 1] how much you would like to stretch the height compared to the width
+ * @param {number} [yStretch = 1] how much you would like to stretch the height compared to the width
  * @param {Object} options options object
  * @param {boolean} [options.async = false] whether to wrap the work for every row in a setTimeout
  * @param {function} [options.charForPixel = return 'x' if !isWhiteOrTransparent else ' '] the function to call to convert from an {r, g, b, a} object to a character or text.
  * @return {Promise} a promise that resolves to an ImagePixels instance
  */
-export const fileToText = (file, width, stretch, options) => fileToPixels(file, width, stretch).then(imgPixels => pixelsToText(imgPixels, options));
+export const fileToText = (file, width, yStretch, options) => fileToPixels(file, width, yStretch).then(imgPixels => pixelsToText(imgPixels, options));
 
 /**
  * Given a File containing an image, convert it to a text representation.
  * @param {string} url url of the image (needs to allows CORS)
  * @param {number} [width = image width] width value if you want to resize the image
- * @param {number} [stretch = 1] how much you would like to stretch the height compared to the width
+ * @param {number} [yStretch = 1] how much you would like to stretch the height compared to the width
  * @param {Object} options options object
  * @param {boolean} [options.async = false] whether to wrap the work for every row in a setTimeout
  * @param {function} [options.charForPixel = return 'x' if !isWhiteOrTransparent else ' '] the function to call to convert from an {r, g, b, a} object to a character or text.
  * @return {Promise} a promise that resolves to an ImagePixels instance
  */
-export const urlToText = (url, width, stretch, options) => urlToPixels(url, width, stretch).then(imgPixels => pixelsToText(imgPixels, options));
+export const urlToText = (url, width, yStretch, options) => urlToPixels(url, width, yStretch).then(imgPixels => pixelsToText(imgPixels, options));
 
