@@ -3,6 +3,46 @@
 Utility to help process an image into a string (mostly for ASCII art) in the browser. Use a [File](https://developer.mozilla.org/en-US/docs/Web/API/File) or url. Also exposes an API to retrieve rgba values for a pixel at any position. See example in [index.html](./index.html).
 
     npm install --save img-using-text
+## Usage
+### Simple example
+```javascript
+import { fileToText } from 'img-using-text';
+// File input change handler. Has to be an image upload. 
+const handleFileChange = function(e)  {
+  const file = this.files[0];
+  fileToText(file).then((text) => {
+    console.log(text);
+  })  
+}
+```
+### More advanced example
+```javascript
+import { fileToText, isWhiteOrTransparent } from 'img-using-text';
+
+const text = 'foobar';
+const charForPixel = (pixel, pixelIndex) => {
+   const { r, g, b, a } = pixel;
+   if (!isWhiteOrTransparent(r, g, b, a)) {
+     return text[pixelIndex % text.length];
+     } else {
+        return ' ';
+     }
+};
+// File input change handler. Has to be an image upload. 
+const handleFileChange = function (e) {
+  const file = this.files[0];
+  const width = 300;
+  const stretch = 0.6;
+  fileToText(file, width, stretch, {
+    charForPixel,
+    async: true
+  })
+  .then((formattedText) => {
+    const content = document.getElementById('content');
+    content.innerHTML = formattedText;
+  });
+};
+```
 
 ## API
 
@@ -144,7 +184,7 @@ Build your library in development mode
 
 Build your library in production mode
 
-### `npm run documentation`
+#### `npm run documentation`
 
 Automatically generate documentation from JSDoc strings and insert them in README.
 
@@ -162,7 +202,7 @@ Hook for npm, that executes when you publishing package in npm repository.
 
 ### Lint
 
-This boilerplate uses
+This project uses
 [air-bnb code style conventions](https://github.com/airbnb/javascript#table-of-contents),
 `.eslintrc` config file:
 
